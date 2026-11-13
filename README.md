@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Payroll Management Application
 
-## Getting Started
+A Next.js application for managing employee records, attendance, and payroll workflows. The codebase includes separate admin and employee areas, API route handlers, authentication integration, and a Prisma data model backed by SQLite in the current development setup.
 
-First, run the development server:
+## Features represented in the codebase
+
+- **Admin dashboard:** an overview area for administrators.
+- **Employee management:** employee listing and management pages.
+- **Attendance:** attendance management pages and API routes.
+- **Payroll:** payroll management pages and API routes.
+- **Employee dashboard:** a dedicated employee-facing area.
+- **Authentication:** NextAuth route integration and middleware.
+- **Data model:** Prisma models for users, employees, attendance, and payroll.
+
+The repository structure documents these areas; verify each workflow in the running application before treating it as production-ready.
+
+## Technology
+
+- Next.js App Router and React
+- TypeScript
+- Prisma ORM
+- SQLite for local development
+- NextAuth
+- bcryptjs
+
+## Project structure
+
+```text
+.
+├── prisma/
+│   ├── schema.prisma
+│   ├── seed.ts
+│   └── dev.db
+└── src/
+    ├── app/
+    │   ├── admin/
+    │   │   ├── attendance/
+    │   │   ├── dashboard/
+    │   │   ├── employees/
+    │   │   └── payroll/
+    │   ├── employee/dashboard/
+    │   ├── api/
+    │   │   ├── attendance/
+    │   │   ├── auth/
+    │   │   ├── employee/
+    │   │   ├── employees/
+    │   │   └── payroll/
+    │   └── login/
+    └── middleware.ts
+```
+
+## Run locally
+
+### Requirements
+
+- Node.js compatible with the installed Next.js version
+- npm
+- A local SQLite database for the current Prisma configuration
+
+### Setup
+
+```bash
+git clone https://github.com/padmanaban-mu/payroll-app-demo-.git
+cd payroll-app-demo-
+npm install
+```
+
+Create a `.env` file and configure the database URL and authentication secret required by the application. For the SQLite schema, the database URL commonly takes this form:
+
+```env
+DATABASE_URL="file:./dev.db"
+NEXTAUTH_SECRET="replace_with_a_long_random_secret"
+NEXTAUTH_URL="http://localhost:3000"
+```
+
+Generate the Prisma client and prepare the local database:
+
+```bash
+npx prisma generate
+npx prisma db push
+```
+
+Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Data and security considerations
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The Prisma schema includes employee bank-account and salary fields. Use synthetic data for demos. Do not commit real employee information, bank details, credentials, or production database files. Before deployment, review authentication, role checks, input validation, audit logging, encryption, backups, and payroll calculation rules.
 
-## Learn More
+The repository currently tracks a SQLite database file. Confirm that it contains only safe sample data before sharing or publishing the repository; this documentation update does not alter or remove it.
 
-To learn more about Next.js, take a look at the following resources:
+## License
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+No license file was identified during this documentation update. Check licensing before reuse or redistribution.
