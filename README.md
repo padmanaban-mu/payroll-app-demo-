@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Payroll Management Application
 
-## Getting Started
+A Next.js application for managing employee information, attendance, and payroll-related workflows. The project has separate admin and employee areas, API route handlers, and a Prisma data layer using SQLite for the current development setup.
 
-First, run the development server:
+## Areas in the application
+
+- Admin pages for the dashboard, employees, attendance, and payroll
+- An employee-facing dashboard
+- API routes for attendance, employees, authentication, and payroll
+- Prisma models for users, employees, attendance, and payroll
+
+These describe the structure present in the repository. Check the running application before assuming every workflow is complete or ready for real payroll use.
+
+## Stack
+
+- Next.js App Router and React
+- TypeScript
+- Prisma ORM
+- SQLite
+- NextAuth
+- bcryptjs
+
+## Main folders
+
+```text
+.
+├── prisma/
+│   ├── schema.prisma
+│   ├── seed.ts
+│   └── dev.db
+└── src/
+    ├── app/
+    │   ├── admin/
+    │   │   ├── attendance/
+    │   │   ├── dashboard/
+    │   │   ├── employees/
+    │   │   └── payroll/
+    │   ├── employee/dashboard/
+    │   ├── api/
+    │   └── login/
+    └── middleware.ts
+```
+
+## Run locally
+
+You will need Node.js, npm, and a local SQLite database.
+
+```bash
+git clone https://github.com/padmanaban-mu/payroll-app-demo-.git
+cd payroll-app-demo-
+npm install
+```
+
+Create a local `.env` file with the database URL and authentication settings expected by the app. For the current SQLite setup, the values generally look like this:
+
+```env
+DATABASE_URL="file:./dev.db"
+NEXTAUTH_SECRET="use_a_long_random_secret"
+NEXTAUTH_URL="http://localhost:3000"
+```
+
+Generate the Prisma client and apply the schema:
+
+```bash
+npx prisma generate
+npx prisma db push
+```
+
+Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Handling payroll data
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The data model includes employee salary and bank-account fields. Use fictional records while testing or demonstrating the project. Do not put real employee details, bank information, passwords, or production database backups in a public repository.
 
-## Learn More
+The repository contains a SQLite database file. Check that it contains only safe sample data before sharing the repository. Before using this for actual payroll, review role-based access, authentication, validation, audit trails, calculation rules, encryption, backups, and applicable legal requirements.
 
-To learn more about Next.js, take a look at the following resources:
+## License
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+No license file was identified for this repository during this update. Add a license if you want to specify the terms under which others may use the project.
